@@ -34,7 +34,7 @@ rm -f /www/server/panel/data/bind.pl
 chattr +i /www/server/panel/data/plugin.json
 ```
 
-5. 去除后门以及其他优化
+5，去除后门以及其他优化
 ```Bash
 curl -sSO https://raw.githubusercontent.com/lidalao/bt/main/install/clean_panel.sh && bash clean_panel.sh
 ```
