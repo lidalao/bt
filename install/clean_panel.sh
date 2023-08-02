@@ -22,13 +22,13 @@ if [ ! -f /www/server/panel/data/userInfo.json ]; then
 fi
 echo "已去除宝塔面板强制绑定账号."
 
-Layout_file="/www/server/panel/BTPanel/templates/default/layout.html";
-JS_file="/www/server/panel/BTPanel/static/bt.js";
-if [ `grep -c "<script src=\"/static/bt.js\"></script>" $Layout_file` -eq '0' ];then
-	sed -i '/{% block scripts %} {% endblock %}/a <script src="/static/bt.js"></script>' $Layout_file;
-fi;
-wget -q http://f.cccyun.cc/bt/bt.js -O $JS_file;
-echo "已去除各种计算题与延时等待."
+# Layout_file="/www/server/panel/BTPanel/templates/default/layout.html";
+# JS_file="/www/server/panel/BTPanel/static/bt.js";
+# if [ `grep -c "<script src=\"/static/bt.js\"></script>" $Layout_file` -eq '0' ];then
+# 	sed -i '/{% block scripts %} {% endblock %}/a <script src="/static/bt.js"></script>' $Layout_file;
+# fi;
+# wget -q http://f.cccyun.cc/bt/bt.js -O $JS_file;
+# echo "已去除各种计算题与延时等待."
 
 sed -i "/htaccess = self.sitePath+'\/.htaccess'/, /public.ExecShell('chown -R www:www ' + htaccess)/d" /www/server/panel/class/panelSite.py
 sed -i "/index = self.sitePath+'\/index.html'/, /public.ExecShell('chown -R www:www ' + index)/d" /www/server/panel/class/panelSite.py
