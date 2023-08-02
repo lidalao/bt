@@ -23,6 +23,14 @@ rm -f /www/server/panel/data/bind.pl
 ```
 
 3，手动解锁宝塔所有付费插件为永不过期
+打开目录/www/server/panel/class找到并编辑panelplugin.py文件
+使用Ctrl+F搜索并找到softList['list'] = tmpList这段代码，在其下方添加如下代码：
+```
+                softList['pro'] = 1
+        for soft in softList['list']:
+            soft['endtime'] = 0
+````
+3，手动解锁宝塔所有付费插件为永不过期
 
 文件路径：`/www/server/panel/data/plugin.json`
 
