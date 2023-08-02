@@ -1,16 +1,16 @@
-# btpanel-v7.7.0
-btpanel-v7.7.0-backup  官方原版v7.7.0版本面板备份
+# bt
+bt-backup  官方原版v7.7.0版本面板备份
 
 **Centos/Ubuntu/Debian安装命令 独立运行环境（py3.7）**
 
 ```Bash
-curl -sSO https://raw.githubusercontent.com/8838/btpanel-v7.7.0/main/install/install_panel.sh && bash install_panel.sh
+curl -sSO https://raw.githubusercontent.com/lidalao/bt/main/install/install_panel.sh && bash install_panel.sh
 ```
 
-**备用安装链接，适用于不能访问GitHub的服务器。文件公开存放在[d.moe.ms](http://d.moe.ms/?btpanel-v7.7.0)**
+**备用安装链接，适用于不能访问GitHub的服务器。文件公开存放在[d.moe.ms](http://d.moe.ms/?bt)**
 
 ```
-curl -sSO http://d.moe.ms/AAAAA/btpanel-v7.7.0/install/install_panel.sh && bash install_panel.sh
+curl -sSO http://d.moe.ms/AAAAA/bt/install/install_panel.sh && bash install_panel.sh
 ```
 
 # 手动破解：
