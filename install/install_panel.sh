@@ -580,14 +580,15 @@ Set_Firewall(){
 	if [ "${PM}" = "apt-get" ]; then
 		apt-get install -y ufw
 		if [ -f "/usr/sbin/ufw" ];then
-			ufw allow 20/tcp
-			ufw allow 21/tcp
+			# ufw allow 20/tcp
+			# ufw allow 21/tcp
 			ufw allow 22/tcp
 			ufw allow 80/tcp
-			ufw allow 888/tcp
+			ufw allow 443/tcp
+			# ufw allow 888/tcp
 			ufw allow ${panelPort}/tcp
 			ufw allow ${sshPort}/tcp
-			ufw allow 39000:40000/tcp
+			# ufw allow 39000:40000/tcp
 			ufw_status=`ufw status`
 			echo y|ufw enable
 			ufw default deny
@@ -595,14 +596,14 @@ Set_Firewall(){
 		fi
 	else
 		if [ -f "/etc/init.d/iptables" ];then
-			iptables -I INPUT -p tcp -m state --state NEW -m tcp --dport 20 -j ACCEPT
-			iptables -I INPUT -p tcp -m state --state NEW -m tcp --dport 21 -j ACCEPT
+			# iptables -I INPUT -p tcp -m state --state NEW -m tcp --dport 20 -j ACCEPT
+			# iptables -I INPUT -p tcp -m state --state NEW -m tcp --dport 21 -j ACCEPT
 			iptables -I INPUT -p tcp -m state --state NEW -m tcp --dport 22 -j ACCEPT
 			iptables -I INPUT -p tcp -m state --state NEW -m tcp --dport 80 -j ACCEPT
+			iptables -I INPUT -p tcp -m state --state NEW -m tcp --dport 443 -j ACCEPT
 			iptables -I INPUT -p tcp -m state --state NEW -m tcp --dport ${panelPort} -j ACCEPT
 			iptables -I INPUT -p tcp -m state --state NEW -m tcp --dport ${sshPort} -j ACCEPT
-			iptables -I INPUT -p tcp -m state --state NEW -m tcp --dport 39000:40000 -j ACCEPT
-			#iptables -I INPUT -p tcp -m state --state NEW -m udp --dport 39000:40000 -j ACCEPT
+			# iptables -I INPUT -p tcp -m state --state NEW -m tcp --dport 39000:40000 -j ACCEPT
 			iptables -A INPUT -p icmp --icmp-type any -j ACCEPT
 			iptables -A INPUT -s localhost -d localhost -j ACCEPT
 			iptables -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
@@ -621,14 +622,14 @@ Set_Firewall(){
 			systemctl enable firewalld
 			systemctl start firewalld
 			firewall-cmd --set-default-zone=public > /dev/null 2>&1
-			firewall-cmd --permanent --zone=public --add-port=20/tcp > /dev/null 2>&1
-			firewall-cmd --permanent --zone=public --add-port=21/tcp > /dev/null 2>&1
+			# firewall-cmd --permanent --zone=public --add-port=20/tcp > /dev/null 2>&1
+			# firewall-cmd --permanent --zone=public --add-port=21/tcp > /dev/null 2>&1
 			firewall-cmd --permanent --zone=public --add-port=22/tcp > /dev/null 2>&1
 			firewall-cmd --permanent --zone=public --add-port=80/tcp > /dev/null 2>&1
+			firewall-cmd --permanent --zone=public --add-port=443/tcp > /dev/null 2>&1
 			firewall-cmd --permanent --zone=public --add-port=${panelPort}/tcp > /dev/null 2>&1
 			firewall-cmd --permanent --zone=public --add-port=${sshPort}/tcp > /dev/null 2>&1
-			firewall-cmd --permanent --zone=public --add-port=39000-40000/tcp > /dev/null 2>&1
-			#firewall-cmd --permanent --zone=public --add-port=39000-40000/udp > /dev/null 2>&1
+			# firewall-cmd --permanent --zone=public --add-port=39000-40000/tcp > /dev/null 2>&1
 			firewall-cmd --reload
 		fi
 	fi
