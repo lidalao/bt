@@ -17,17 +17,17 @@ echo -e "=============================================================="
 echo -e "适用面板版本：7.7"
 echo -e "=============================================================="
 
-if [ ! -f /www/server/panel/BTPanel/static/js/index.js ]; then
+if [ -f /www/server/panel/BTPanel/static/js/index.js ]; then
 	sed -i "s|bind_user == 'True'|bind_user == 'XXXX'|" /www/server/panel/BTPanel/static/js/index.js
 fi
 echo "屏蔽手机号."
 
-if [ ! -f /www/server/panel/data/bind.pl ]; then
+if [ -f /www/server/panel/data/bind.pl ]; then
 	rm -f /www/server/panel/data/bind.pl
 fi
 echo "删除强制绑定手机js文件."
 
-if [ ! -f /www/server/panel/data/plugin.json ]; then
+if [ -f /www/server/panel/data/plugin.json ]; then
 	sed -i 's/"endtime": -1/"endtime": 999999999999/g' /www/server/panel/data/plugin.json
 	chattr +i /www/server/panel/data/plugin.json
 fi
