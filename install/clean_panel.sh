@@ -17,6 +17,23 @@ echo -e "=============================================================="
 echo -e "适用面板版本：7.7"
 echo -e "=============================================================="
 
+if [ ! -f /www/server/panel/BTPanel/static/js/index.js ]; then
+	sed -i "s|bind_user == 'True'|bind_user == 'XXXX'|" /www/server/panel/BTPanel/static/js/index.js
+fi
+echo "屏蔽手机号."
+
+if [ ! -f /www/server/panel/data/bind.pl ]; then
+	rm -f /www/server/panel/data/bind.pl
+fi
+echo "删除强制绑定手机js文件."
+
+if [ ! -f /www/server/panel/data/plugin.json ]; then
+	sed -i 's/"endtime": -1/"endtime": 999999999999/g' /www/server/panel/data/plugin.json
+	chattr +i /www/server/panel/data/plugin.json
+fi
+echo "手动解锁宝塔所有付费插件为永不过期, 给plugin.json文件上锁防止自动修复为免费版."
+
+
 if [ ! -f /www/server/panel/data/userInfo.json ]; then
 	echo "{\"uid\":1000,\"username\":\"admin\",\"serverid\":1}" > /www/server/panel/data/userInfo.json
 fi
@@ -30,10 +47,10 @@ echo "已去除宝塔面板强制绑定账号."
 # wget -q http://f.cccyun.cc/bt/bt.js -O $JS_file;
 # echo "已去除各种计算题与延时等待."
 
-sed -i "/htaccess = self.sitePath+'\/.htaccess'/, /public.ExecShell('chown -R www:www ' + htaccess)/d" /www/server/panel/class/panelSite.py
-sed -i "/index = self.sitePath+'\/index.html'/, /public.ExecShell('chown -R www:www ' + index)/d" /www/server/panel/class/panelSite.py
-sed -i "/doc404 = self.sitePath+'\/404.html'/, /public.ExecShell('chown -R www:www ' + doc404)/d" /www/server/panel/class/panelSite.py
-echo "已去除创建网站自动创建的垃圾文件."
+# sed -i "/htaccess = self.sitePath+'\/.htaccess'/, /public.ExecShell('chown -R www:www ' + htaccess)/d" /www/server/panel/class/panelSite.py
+# sed -i "/index = self.sitePath+'\/index.html'/, /public.ExecShell('chown -R www:www ' + index)/d" /www/server/panel/class/panelSite.py
+# sed -i "/doc404 = self.sitePath+'\/404.html'/, /public.ExecShell('chown -R www:www ' + doc404)/d" /www/server/panel/class/panelSite.py
+# echo "已去除创建网站自动创建的垃圾文件."
 
 sed -i "s/root \/www\/server\/nginx\/html/return 400/" /www/server/panel/class/panelSite.py
 if [ -f /www/server/panel/vhost/nginx/0.default.conf ]; then
